@@ -1,9 +1,45 @@
 # Script de utilidades para automatizar cosas simples mediante Python
 
+import os, platform # Importacion de Librerias
+
 # Funcion para Limpiar la Terminal
 def limpiarTerminal() -> None:
-    import os, platform
     os.system("cls" if platform.system() == "Windows" else "Clear")
+
+# Funcion para el manejo de Git mediante Skell's Toys
+def gitUI() -> None:
+    run: bool = True
+    while run:
+        limpiarTerminal()
+        mostrarTitulo(1)
+        seleccion: int = 0
+        print(" 1. Crear Repositorio.")
+        print(" 2. Comprobar Estado.")
+        print(" 3. Realizar Commit.")
+        print(" 4. Volver.")
+        try:
+            seleccion = int(input(" - Seleccion: "))
+        except:
+            # Opcion Inexistente o Caracter Invalido
+            print(" - Opcion Invalida . . .")
+            input(" - Presione una tecla para continuar")
+        # Manejo de Casos
+        match seleccion:
+            case 1: # Crear un Repositorio
+                limpiarTerminal()
+                mostrarTitulo(1)
+            case 2: # Comprobar Estado
+                limpiarTerminal()
+                mostrarTitulo(1)
+            case 3: # Realizar Commit
+                limpiarTerminal()
+                mostrarTitulo(1)
+            case 4: # Volver a Menu Anterior
+                limpiarTerminal()
+                break
+            case _: # Opcion Invalida
+                print("Opcion Invalida . . .")
+        input(" - Presione ENTER para continuar")
 
 # Titulo de Skell's Toys
 def mostrarTitulo(titulo: int) -> None:
@@ -11,6 +47,10 @@ def mostrarTitulo(titulo: int) -> None:
         case 0:
             print("-" * 10, end="")
             print(" Skell's Toys ", end="")
+            print("-" * 10)
+        case 1:
+            print("-" * 10, end="")
+            print(" Skell's Toys - Git Tools ", end="")
             print("-" * 10)
         case _:
             print(f"Titulo No Definido: {titulo}")
@@ -37,11 +77,20 @@ def main() -> None:
             seleccion = int(input(" - Seleccion: "))
         except:
             # Opcion Inexistente o Caracter Invalido
-            print("Opcion Invalida . . .")
+            print(" - Opcion Invalida . . .")
+            input(" - Presione una tecla para continuar")
         if seleccion == 3: # Termina la ejecucion del programa
             limpiarTerminal()
             break
-        input("Presione una tecla para continuar")
+        # Procedemos con el manejo de opciones
+        limpiarTerminal()
+        match seleccion:
+            case 1:
+                gitUI()
+            case _:
+                mostrarTitulo(0)
+                print(" - Opcion Invalida . . .")
+        # input(" - Presione una tecla para continuar")
 
 if __name__ == "__main__":
     main()

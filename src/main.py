@@ -6,6 +6,28 @@ import os, platform # Importacion de Librerias
 def limpiarTerminal() -> None:
     os.system("cls" if platform.system() == "Windows" else "Clear")
 
+# Funcion para Crear el Repositorio
+def gitInit(nombre: str) -> None:
+    limpiarTerminal()
+    mostrarTitulo(1)
+    nombre = nombre.replace(" ", "-")
+    try:
+        os.system(f"git init {nombre}")
+    except:
+        print("Hubo un error al momento de crear el repositorio")
+    else:
+        # Creacion del README
+        with open(f"{ nombre + '/' if nombre != '' else ''}README.md", "w") as archivo:
+            archivo.write(f"# {nombre}")
+            archivo.close()
+        # Creacion de la LICENCIA
+        with open(f"{ nombre + '/' if nombre != '' else ''}LICENSE", "w") as archivo:
+            archivo.write(f"# LICENCIA PERSONALIZADA")
+            archivo.close()
+        # Creacion de Carpetas
+        os.system(f"{ 'cd ' + nombre + ' && ' if nombre != '' else ''}mkdir src") # Carpeta de Recursos
+        os.system(f"{ 'cd ' + nombre + ' && ' if nombre != '' else ''}mkdir docs") # Carpeta de Documentacion
+
 # Funcion para el manejo de Git mediante Skell's Toys
 def gitUI() -> None:
     run: bool = True
@@ -26,8 +48,7 @@ def gitUI() -> None:
         # Manejo de Casos
         match seleccion:
             case 1: # Crear un Repositorio
-                limpiarTerminal()
-                mostrarTitulo(1)
+                gitInit(input(" - Ingrese el nombre del repositorio: "))
             case 2: # Comprobar Estado
                 limpiarTerminal()
                 mostrarTitulo(1)
